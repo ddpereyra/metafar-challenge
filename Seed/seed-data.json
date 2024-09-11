@@ -1,0 +1,14 @@
+[
+  {
+    "CardNumber": "CARD-123456",
+    "Pin": "1234",
+    "IsBlocked": false,
+    "FailedAttempts": 0
+  },
+  {
+    "CardNumber": "CARD-654321",
+    "Pin": "5678",
+    "IsBlocked": true,
+    "FailedAttempts": 4
+  }
+]
