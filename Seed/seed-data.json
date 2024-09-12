@@ -1,14 +1,108 @@
 [
   {
-    "CardNumber": "CARD-123456",
-    "Pin": "1234",
-    "IsBlocked": false,
-    "FailedAttempts": 0
+    "AccountHolderName": "Alicia Perez",
+    "AccountNumber": "ACC-0001",
+    "Balance": 1500.00,
+    "Cards": [
+      {
+        "CardNumber": "CARD-100001",
+        "Pin": "1111",
+        "IsBlocked": false,
+        "FailedAttempts": 0
+      }
+    ],
+    "Transactions": [
+      {
+        "Amount": 500.00,
+        "TransactionDate": "2024-09-10T10:00:00Z",
+        "Type": 0
+      },
+      {
+        "Amount": -200.00,
+        "TransactionDate": "2024-09-12T12:30:00Z",
+        "Type": 1
+      }
+    ]
   },
   {
-    "CardNumber": "CARD-654321",
-    "Pin": "5678",
-    "IsBlocked": true,
-    "FailedAttempts": 4
+    "AccountHolderName": "Juan Tomas",
+    "AccountNumber": "ACC-0002",
+    "Balance": 2500.00,
+    "Cards": [
+      {
+        "CardNumber": "CARD-100002",
+        "Pin": "2222",
+        "IsBlocked": false,
+        "FailedAttempts": 1
+      }
+    ],
+    "Transactions": [
+      {
+        "Amount": 1000.00,
+        "TransactionDate": "2024-09-11T14:00:00Z",
+        "Type": 0
+      },
+      {
+        "Amount": -300.00,
+        "TransactionDate": "2024-09-13T15:15:00Z",
+        "Type": 1
+      }
+    ]
+  },
+  {
+    "AccountHolderName": "Joaquin Esteban",
+    "AccountNumber": "ACC-0003",
+    "Balance": 300.00,
+    "Cards": [
+      {
+        "CardNumber": "CARD-100003",
+        "Pin": "3333",
+        "IsBlocked": true,
+        "FailedAttempts": 4
+      }
+    ],
+    "Transactions": [
+      {
+        "Amount": 150.00,
+        "TransactionDate": "2024-09-10T09:30:00Z",
+        "Type": 0
+      },
+      {
+        "Amount": -50.00,
+        "TransactionDate": "2024-09-12T11:00:00Z",
+        "Type": 1
+      }
+    ]
+  },
+  {
+    "AccountHolderName": "Matias Ferraro",
+    "AccountNumber": "ACC-0004",
+    "Balance": 600.00,
+    "Cards": [
+      {
+        "CardNumber": "CARD-100004",
+        "Pin": "4444",
+        "IsBlocked": false,
+        "FailedAttempts": 0
+      },
+      {
+        "CardNumber": "CARD-100005",
+        "Pin": "5555",
+        "IsBlocked": false,
+        "FailedAttempts": 2
+      }
+    ],
+    "Transactions": [
+      {
+        "Amount": 250.00,
+        "TransactionDate": "2024-09-11T13:00:00Z",
+        "Type": 0
+      },
+      {
+        "Amount": -100.00,
+        "TransactionDate": "2024-09-13T14:45:00Z",
+        "Type": 1
+      }
+    ]
   }
 ]

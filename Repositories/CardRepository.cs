@@ -16,7 +16,10 @@ namespace metafar_challenge.Repositories
 
         public async Task<Card> GetByCardNumber(string cardNumber)
         {
-            return await _context.Cards.FirstOrDefaultAsync(c => c.CardNumber == cardNumber);
+            return await _context.Cards
+                .Include(c => c.BankAccount)
+                .ThenInclude(b => b.Transactions)
+                .FirstOrDefaultAsync(c => c.CardNumber == cardNumber);
         }
     }
 }

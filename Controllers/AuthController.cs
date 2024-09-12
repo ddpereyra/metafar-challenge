@@ -32,7 +32,7 @@ namespace metafar_challenge.Controllers
         {
             try
             {
-                var token = await _authService.Login(req.CardNumber, req.Pin);
+                string token = await _authService.Login(req.CardNumber, req.Pin);
                 return Ok(new { Token = token});
             }
             catch (Exception ex)

@@ -7,17 +7,21 @@ using metafar_challenge.Services;
 using metafar_challenge.Seed;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<DbInitializer>();
 builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICardService, CardService>();
+builder.Services.AddScoped<IOperationService, OperationService>();
 
 // Add dbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -31,6 +35,22 @@ builder.Services.AddSwaggerGen(
         options.IncludeXmlComments(xmlPath);
     }
 );
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var base64Key = builder.Configuration["Jwt:Key"];
+        var key = Convert.FromBase64String(base64Key);
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateLifetime = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
 
 var app = builder.Build();
 
@@ -47,12 +67,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Seed the database with initial data
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<AppDbContext>();
-    await DbInitializer.Initialize(context);
+    var dbInitializer = services.GetRequiredService<DbInitializer>();
+    await dbInitializer.Initialize();
 }
 
 app.Run();

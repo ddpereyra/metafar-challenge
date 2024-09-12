@@ -8,5 +8,7 @@ namespace metafar_challenge.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Card> Cards { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

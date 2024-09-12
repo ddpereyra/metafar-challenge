@@ -9,24 +9,18 @@ namespace metafar_challenge.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly ICardRepository _cardRepository;
+        private readonly ICardService _cardService;
         private readonly IConfiguration _configuration;
 
-        public AuthService(ICardRepository cardRepository, IConfiguration configuration)
+        public AuthService(IConfiguration configuration, ICardService cardService)
         {
-            _cardRepository = cardRepository;
+            _cardService = cardService;
             _configuration = configuration;
         }
 
         public async Task<string> Login(string cardNumber, string pin)
         {
-            var card = await _cardRepository.GetByCardNumber(cardNumber);
-
-            if (card == null)
-                throw new Exception("Card not found.");
-
-            if (card.IsBlocked)
-                throw new Exception("Card is blocked.");
+            Card card = await _cardService.GetValidatedCard(cardNumber);
 
             if (card.Pin != pin)
             {
@@ -37,13 +31,13 @@ namespace metafar_challenge.Services
                     card.IsBlocked = true;
                 }
 
-                await _cardRepository.Update(card);
+                await _cardService.UpdateDb(card);
 
                 throw new Exception("Invalid PIN.");
             }
 
             card.FailedAttempts = 0;
-            await _cardRepository.Update(card);
+            await _cardService.UpdateDb(card);
 
             return GenerateJwtToken(card);
         }
