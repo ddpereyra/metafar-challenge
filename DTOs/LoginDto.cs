@@ -1,6 +1,6 @@
-﻿namespace metafar_challenge.Models
+﻿namespace metafar_challenge.DTOs
 {
-    public class LoginReq
+    public class LoginDto
     {
         public string CardNumber { get; set; }
         public string Pin { get; set; }

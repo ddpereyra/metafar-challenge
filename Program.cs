@@ -13,11 +13,14 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<DbInitializer>();
-builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IOperationService, OperationService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+
+builder.Services.AddScoped<DbInitializer>();
+builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 // Add dbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
